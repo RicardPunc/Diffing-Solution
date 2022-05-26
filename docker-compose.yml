@@ -1,0 +1,22 @@
+services:
+  diff:
+    image: diff
+    build:
+        context: "./Diffing API"
+        dockerfile: Dockerfile
+    ports:
+      - "5000:80"
+    depends_on: 
+      - mongodbData
+    volumes:
+      - mongodbData:/data 
+  mongodbData:
+    image : mongo
+    container_name: mongodbData
+    ports:
+      - "27017:27017"
+    restart: unless-stopped
+    volumes:
+      - mongodbData:/data   
+volumes:
+    mongodbData:
